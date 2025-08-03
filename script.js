@@ -36,8 +36,8 @@ function loadNext() {
   order[current] = pair;
 
   document.getElementById("pairIndex").textContent = current + 1;
-  document.getElementById("img1").src = `img/${pairId}_${iaFirst ? 'b' : 'a'}.png`;
-  document.getElementById("img2").src = `img/${pairId}_${iaFirst ? 'a' : 'b'}.png`;
+  document.getElementById("img1").src = `assets/${pairId}_${iaFirst ? 'b' : 'a'}.png`;
+  document.getElementById("img2").src = `assets/${pairId}_${iaFirst ? 'a' : 'b'}.png`;
 }
 
 function makeChoice(choice) {
