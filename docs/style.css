@@ -37,6 +37,14 @@ body {
   border-color: #ccc;
 }
 
+.pair img[style*="cursor: not-allowed"] {
+  filter: grayscale(50%);
+}
+
+.pair img[style*="cursor: not-allowed"]:hover {
+  border-color: transparent;
+}
+
 .recap-pair {
   display: flex;
   justify-content: center;
@@ -51,8 +59,12 @@ body {
   border: 3px solid transparent;
 }
 
-.recap-pair img.ia {
-  border-color: red;
+.recap-pair img.user-correct {
+  border-color: #4CAF50;
+}
+
+.recap-pair img.user-wrong {
+  border-color: #f44336;
 }
 
 .recap-pair .correct::after {
