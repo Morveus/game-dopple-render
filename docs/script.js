@@ -19,7 +19,7 @@ function startGame() {
 function getRandomPair() {
   let id;
   do {
-    id = Math.floor(Math.random() * 21);
+    id = Math.floor(Math.random() * 31);
   } while (seen.has(id));
   seen.add(id);
   return id.toString().padStart(3, '0');
