@@ -3,6 +3,8 @@ let score = 0;
 let order = [];
 let seen = new Set();
 let rounds = [];
+let imagesLoaded = 0;
+let canClick = false;
 
 function startGame() {
   current = 0;
@@ -27,6 +29,12 @@ function getRandomPair() {
 
 function loadNext() {
   if (current >= 10) return showResult();
+  
+  canClick = false;
+  imagesLoaded = 0;
+  
+  showLoadingMessage();
+  
   const pairId = getRandomPair();
   const iaFirst = Math.random() < 0.5;
   const pair = {
@@ -36,11 +44,25 @@ function loadNext() {
   order[current] = pair;
 
   document.getElementById("pairIndex").textContent = current + 1;
-  document.getElementById("img1").src = `assets/${pairId}_${iaFirst ? 'b' : 'a'}.png`;
-  document.getElementById("img2").src = `assets/${pairId}_${iaFirst ? 'a' : 'b'}.png`;
+  
+  const img1 = document.getElementById("img1");
+  const img2 = document.getElementById("img2");
+  
+  img1.style.cursor = "not-allowed";
+  img2.style.cursor = "not-allowed";
+  img1.style.opacity = "0.5";
+  img2.style.opacity = "0.5";
+  
+  img1.onload = imageLoaded;
+  img2.onload = imageLoaded;
+  
+  img1.src = `assets/${pairId}_${iaFirst ? 'b' : 'a'}.png`;
+  img2.src = `assets/${pairId}_${iaFirst ? 'a' : 'b'}.png`;
 }
 
 function makeChoice(choice) {
+  if (!canClick) return;
+  
   const pair = order[current];
   const correct = pair.correct;
   const success = (choice === correct);
@@ -52,6 +74,34 @@ function makeChoice(choice) {
   });
   current++;
   loadNext();
+}
+
+function imageLoaded() {
+  imagesLoaded++;
+  if (imagesLoaded === 2) {
+    hideLoadingMessage();
+    const img1 = document.getElementById("img1");
+    const img2 = document.getElementById("img2");
+    img1.style.cursor = "pointer";
+    img2.style.cursor = "pointer";
+    img1.style.opacity = "1";
+    img2.style.opacity = "1";
+    canClick = true;
+  }
+}
+
+function showLoadingMessage() {
+  const loadingMsg = document.getElementById("loadingMessage");
+  if (loadingMsg) {
+    loadingMsg.style.display = "block";
+  }
+}
+
+function hideLoadingMessage() {
+  const loadingMsg = document.getElementById("loadingMessage");
+  if (loadingMsg) {
+    loadingMsg.style.display = "none";
+  }
 }
 
 function showResult() {
@@ -70,11 +120,17 @@ function showResult() {
 
     const img1 = document.createElement("img");
     img1.src = `assets/${round.id}_${iaFirst ? 'b' : 'a'}.png`;
-    if (iaFirst) img1.classList.add("ia");
 
     const img2 = document.createElement("img");
     img2.src = `assets/${round.id}_${iaFirst ? 'a' : 'b'}.png`;
-    if (!iaFirst) img2.classList.add("ia");
+
+    const userWasCorrect = (round.user === round.correct);
+
+    if (userClickedFirst) {
+      img1.classList.add(userWasCorrect ? "user-correct" : "user-wrong");
+    } else {
+      img2.classList.add(userWasCorrect ? "user-correct" : "user-wrong");
+    }
 
     if ((iaFirst && round.user === 1) || (!iaFirst && round.user === 0)) {
       pairDiv.classList.add("correct");
