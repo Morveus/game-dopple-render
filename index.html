@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Dopple Render</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container" id="intro">
+    <h1>Dopple Render</h1>
+    <p>You will see pairs of images : one is real, the other is AI-generated. Click on the REAL photo. 10 pairs to identify. You'll get your score at the end.</p>
+    <button onclick="startGame()">Commencer</button>
+  </div>
+
+  <div class="container hidden" id="game">
+    <h2>Paire <span id="pairIndex">1</span>/10</h2>
+    <div class="pair">
+      <img id="img1" onclick="makeChoice(0)">
+      <img id="img2" onclick="makeChoice(1)">
+    </div>
+  </div>
+
+  <div class="container hidden" id="result">
+    <h2>Summary</h2>
+    <p>Your score : <span id="score"></span>/10</p>
+    <div id="recap"></div>
+    <button onclick="startGame()">Rejouer</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
