@@ -69,11 +69,11 @@ function showResult() {
     pairDiv.className = "recap-pair";
 
     const img1 = document.createElement("img");
-    img1.src = `img/${round.id}_${iaFirst ? 'b' : 'a'}.png`;
+    img1.src = `assets/${round.id}_${iaFirst ? 'b' : 'a'}.png`;
     if (iaFirst) img1.classList.add("ia");
 
     const img2 = document.createElement("img");
-    img2.src = `img/${round.id}_${iaFirst ? 'a' : 'b'}.png`;
+    img2.src = `assets/${round.id}_${iaFirst ? 'a' : 'b'}.png`;
     if (!iaFirst) img2.classList.add("ia");
 
     if ((iaFirst && round.user === 1) || (!iaFirst && round.user === 0)) {
