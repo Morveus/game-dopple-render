@@ -15,11 +15,11 @@
   <div class="container hidden" id="game">
     <h2>Pair <span id="pairIndex">1</span>/10</h2>
     <p>(Click on the real photo)</p>
-    <p id="loadingMessage" style="display: none; font-style: italic; color: #666;">Loading next pair...</p>
     <div class="pair">
       <img id="img1" onclick="makeChoice(0)">
       <img id="img2" onclick="makeChoice(1)">
     </div>
+    <p id="loadingMessage" style="display: none; font-style: italic; color: #666; margin-top: 1em;">Loading next pair...</p>
   </div>
 
   <div class="container hidden" id="result">
@@ -29,6 +29,7 @@
     <button onclick="startGame()">Play again</button>
   </div>
 
+  <script src="image_mapping.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

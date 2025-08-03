@@ -56,8 +56,14 @@ function loadNext() {
   img1.onload = imageLoaded;
   img2.onload = imageLoaded;
   
-  img1.src = `assets/${pairId}_${iaFirst ? 'b' : 'a'}.png`;
-  img2.src = `assets/${pairId}_${iaFirst ? 'a' : 'b'}.png`;
+  const mappingEntry = imageMapping[pairId];
+  if (!mappingEntry) {
+    console.error(`No mapping found for pair ${pairId}`);
+    return;
+  }
+  
+  img1.src = `assets/${iaFirst ? mappingEntry.b : mappingEntry.a}`;
+  img2.src = `assets/${iaFirst ? mappingEntry.a : mappingEntry.b}`;
 }
 
 function makeChoice(choice) {
@@ -119,10 +125,11 @@ function showResult() {
     pairDiv.className = "recap-pair";
 
     const img1 = document.createElement("img");
-    img1.src = `assets/${round.id}_${iaFirst ? 'b' : 'a'}.png`;
+    const mappingEntry = imageMapping[round.id];
+    img1.src = `assets/${iaFirst ? mappingEntry.b : mappingEntry.a}`;
 
     const img2 = document.createElement("img");
-    img2.src = `assets/${round.id}_${iaFirst ? 'a' : 'b'}.png`;
+    img2.src = `assets/${iaFirst ? mappingEntry.a : mappingEntry.b}`;
 
     const userWasCorrect = (round.user === round.correct);
 
