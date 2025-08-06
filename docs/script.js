@@ -21,7 +21,7 @@ function startGame() {
 function getRandomPair() {
   let id;
   do {
-    id = Math.floor(Math.random() * 31);
+    id = Math.floor(Math.random() * (580/2));
   } while (seen.has(id));
   seen.add(id);
   return id.toString().padStart(3, '0');
